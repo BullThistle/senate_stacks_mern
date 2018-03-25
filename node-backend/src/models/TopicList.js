@@ -2,13 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //schema
-var Topic = new Schema({
+var TopicList = new Schema({
   desc: {
     type: String
   },
 
 },{
-    collection: 'Comments'
+    collection: 'Tasks'
 });
 
-module.exports = mongoose.model('TodoList', Topic);
+module.exports = mongoose.model('TopicList', TopicList);

@@ -3,19 +3,19 @@ var app = express();
 var router = express.Router();
 
 //Schema
-var Topic = require('../models/Topic');
+var TopicList = require('../models/TopicList');
 
 // Get Specific
 router.route('/:id').get(function (req, res) {
   var id = req.params.id;
-  Topic.findById(id, function (err, item){
+  TopicList.findById(id, function (err, item){
       res.json(item);
   });
 });
 
 // Get All Items
 router.route('/').get(function (req, res) {
-  Topic.find(function (err, items){
+  TopicList.find(function (err, items){
     if(err){
       console.log(err);
     } else {
@@ -26,7 +26,7 @@ router.route('/').get(function (req, res) {
 
 // Add item
 router.route('/add').post(function (req, res) {
-  var item = new TodoList(req.body);
+  var item = new TopicList(req.body);
       item.save()
     .then(item => {
     res.json('Added');
@@ -38,7 +38,7 @@ router.route('/add').post(function (req, res) {
 
 //  Update Specific
 router.route('/update/:id').post(function (req, res) {
-  Topic.findById(req.params.id, function(err, item) {
+  TopicList.findById(req.params.id, function(err, item) {
     if (!item)
       return next(new Error('Could not load Document'));
     else {
@@ -56,7 +56,7 @@ router.route('/update/:id').post(function (req, res) {
 
 // Delete Specific
 router.route('/delete/:id').get(function (req, res) {
-  Topic.findByIdAndRemove({_id: req.params.id},
+  TopicList.findByIdAndRemove({_id: req.params.id},
        function(err, item){
         if(err) res.json(err);
         else res.json('Deleted');
