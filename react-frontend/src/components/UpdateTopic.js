@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TopicService from './TopicService';
+import { Container, Grid, Form, Button, TextArea, Header } from 'semantic-ui-react'
 
 export default class UpdateTopic extends Component {
 
@@ -58,22 +59,21 @@ export default class UpdateTopic extends Component {
 
   render() {
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="panel panel-default">
-            <div className="panel-heading">Edit Comment</div>
-            <div className="panel-body">
-            <p>Comment description</p>
-              <input type="hidden" value={this.state._id} />
-                  <input type="text" value={this.state.desc} onChange={this.handleChange}  className="form-control"/>
-            </div>
-            <div className="panel-footer">
-            <button type="submit" className="btn btn-primary">Update</button>
-            <button type="button" className="btn btn-default" onClick={this.handleCancel}>Cancel</button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <Container style={{ marginTop: '7em' }}>
+        <Grid className="centered">
+          <Form onSubmit={this.handleSubmit}>
+            <Header as='h1'>Edit Comment</Header>
+            <input type="hidden" value={this.state._id} />
+            <TextArea 
+              value={this.state.desc}
+              onChange={this.handleChange}  
+              style={{ marginBottom: '1em' }}
+            />
+            <Button primary type="submit">Update</Button>
+            <Button secondary onClick={this.handleCancel}>Cancel</Button>
+          </Form>
+        </Grid>
+      </Container>
     );
   }
 }
