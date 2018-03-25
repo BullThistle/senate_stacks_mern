@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TopicService from './TopicService';
+import { Container, Grid, Form, Button, TextArea } from 'semantic-ui-react'
 
 export default class AddTopic extends Component {
 
@@ -33,21 +34,29 @@ export default class AddTopic extends Component {
 
     render() {
       return (
-        <div className="container">
-          <form onSubmit={this.handleSubmit}>
-            <div className="panel panel-default">
-              <div className="panel-heading">Add Comment</div>
-              <div className="panel-body">
-              <p>Comment description</p>
-                <input type="text" value={this.state.value} onChange={this.handleChange} className="form-control"/>
-              </div>
-              <div className="panel-footer">
-              <button type="submit" className="btn btn-primary">Add</button>
-              <button type="button" className="btn btn-default" onClick={this.handleCancel}>Cancel</button>
-              </div>
-            </div>
-          </form>
-        </div>
+        <Container style={{ marginTop: '7em' }}>
+          <Grid className="centered">
+            <Form>
+              <form onSubmit={this.handleSubmit}>
+                <div className="panel panel-default">
+                  <div className="panel-heading">Add Comment</div>
+                  <div className="panel-body">
+                  <p>Comment description</p>
+                    <TextArea 
+                      value={this.state.value} 
+                      onChange={this.handleChange} 
+                      style={{ marginBottom: '1em' }}
+                    />
+                  </div>
+                  <div className="panel-footer">
+                  <Button primary type="submit">Add</Button>
+                  <Button secondary onClick={this.handleCancel}>Cancel</Button>
+                  </div>
+                </div>
+              </form>
+            </Form>
+          </Grid>
+        </Container>
       );
     }
   }

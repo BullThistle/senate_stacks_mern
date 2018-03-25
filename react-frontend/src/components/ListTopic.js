@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TopicService from './TopicService';
 import axios from 'axios';
 import ListTopicRow from './ListTopicRow';
+import { Container, Grid, Form, Button, TextArea } from 'semantic-ui-react'
 
 export default class IndexItem extends Component {
 
@@ -55,22 +56,24 @@ export default class IndexItem extends Component {
 
     render() {
       return (
-        <div className="container">
-          <div className="panel panel-default">
-            <div className="panel-heading">List of Comments</div>
-            <div className="panel-body">
-            <p>Click on the comment to edit</p>
-              <table id="topic-list" className="table table-bordered">
-                <tbody>
-                  {this.tabRow()}
-                </tbody>
-              </table>
+        <Container style={{ marginTop: '7em' }}>
+          <Grid className="centered">
+            <div className="panel panel-default">
+              <div className="panel-heading">List of Comments</div>
+              <div className="panel-body">
+              <p>Click on the comment to edit</p>
+                <table id="topic-list" className="table table-bordered">
+                  <tbody>
+                    {this.tabRow()}
+                  </tbody>
+                </table>
+              </div>
+              <div className="panel-footer">
+                <Button primary onClick={this.handleAdd}>Add</Button>
+              </div>
             </div>
-            <div className="panel-footer">
-              <button onClick={this.handleAdd} className="btn btn-info">New comment</button>
-            </div>
-          </div>
-        </div>
+          </Grid>
+        </Container>
       );
     }
   }

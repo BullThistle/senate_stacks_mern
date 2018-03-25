@@ -10,6 +10,7 @@ import AddTopic from './components/AddTopic';
 import ListTopic from './components/ListTopic';
 import UpdateTopic from './components/UpdateTopic';
 
+import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 
 ReactDOM.render(
