@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 //server configuration
-var basePath = '/';
+var basePath = '/topic';
 var port = 6200;
 
 // Connection to DB
@@ -17,14 +17,18 @@ mongoose.connect('mongodb://mongodb')
         process.exit(1);
     });
 
+// Routes and Backend Funcioncalities
+var topicRoutes = require('./src/routes/routes');
+
 // App Instance
 var app = express();
 app.use(express.static('public'));
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(basePath, topicRoutes);
 
 // Execute App
 app.listen(port, () => {
-  console.log('SenateStacks Backend running on Port: ',port);
+  console.log('Topic Backend running on Port: ',port);
 });
