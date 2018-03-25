@@ -1,8 +1,34 @@
+//index.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import {Header} from "./components/Header";
+
+import AddTopic from './components/AddTopic';
+import ListTopic from './components/ListTopic';
+import UpdateTopic from './components/UpdateTopic';
+
+import './index.css';
+
+ReactDOM.render(
+  <div className="container">
+    <div className="row">
+      <div className="col-xs-12">
+        <Header/>
+      </div>
+    </div>
+    <div>
+      <Router>
+      <div>
+      <Route path='/add' component={AddTopic} />
+      <Route exact path='/' component={ListTopic} />
+      <Route path='/update/:id' component={UpdateTopic} />
+      </div>
+      </Router>
+    </div>
+  </div>
+,
+  document.getElementById('root')
+);
