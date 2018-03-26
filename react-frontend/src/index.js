@@ -9,6 +9,7 @@ import {Header} from "./components/Header";
 import AddTopic from './components/AddTopic';
 import ListTopic from './components/ListTopic';
 import UpdateTopic from './components/UpdateTopic';
+import State from './components/State';
 
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path='/add' component={AddTopic} />
         <Route exact path='/' component={ListTopic} />
         <Route path='/update/:id' component={UpdateTopic} />
+        <Route path='/:state' component={State} />
       </div>
     </Router>
   </div>
