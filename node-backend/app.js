@@ -7,6 +7,9 @@ var cors = require('cors');
 var basePath = '/topic';
 var port = 6200;
 
+//dotenv configuration
+require('dotenv').config()
+
 // Connection to DB
 mongoose.connect('mongodb://mongodb')
     .then(() => {
