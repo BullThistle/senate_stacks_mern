@@ -1,20 +1,14 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
+const request = require('request');
 
 //Schema
 var TopicList = require('../models/TopicList');
 
-// Get Specific
-router.route('/:id').get(function (req, res) {
-  var id = req.params.id;
-  TopicList.findById(id, function (err, item){
-      res.json(item);
-  });
-});
-
 // Get All Items
 router.route('/').get(function (req, res) {
+  console.log('Def Hits Right Here');
   TopicList.find(function (err, items){
     if(err){
       console.log(err);
@@ -61,6 +55,25 @@ router.route('/delete/:id').get(function (req, res) {
         if(err) res.json(err);
         else res.json('Deleted');
     });
+});
+
+router.route('/:state').get(function (req, res) {
+  var state = req.params.state;
+  var apiKey = process.env.OPEN_SECRETS_API;
+  var url = `http://www.opensecrets.org/api/?method=getLegislators&id=${state}&apikey=${apiKey}&output=json`;
+
+  request(url, function (err, response, body) {
+    if(err){
+      res.render('index', {legislators: null, error: 'Error, please try again'});
+    } else {
+      var legislators = JSON.parse(body)
+      if(legislators.response == undefined){
+        res.render('index', {legislators: null, error: 'Error, please try again'});
+      } else {
+        res.json(legislators);
+      }
+    }
+  });
 });
 
 module.exports = router;

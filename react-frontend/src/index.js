@@ -22,7 +22,7 @@ ReactDOM.render(
         <Route path='/add' component={AddTopic} />
         <Route exact path='/' component={ListTopic} />
         <Route path='/update/:id' component={UpdateTopic} />
-        <Route path='/:state' component={State} />
+        <Route path='/:states' component={State} />
       </div>
     </Router>
   </div>

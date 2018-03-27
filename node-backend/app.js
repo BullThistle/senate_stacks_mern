@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 //server configuration
-var basePath = '/topic';
+var basePath = '/';
 var port = 6200;
 
 //dotenv configuration
