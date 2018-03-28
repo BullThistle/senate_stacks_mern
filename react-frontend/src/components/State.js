@@ -49,7 +49,7 @@ export default class State extends Component {
             </Grid.Row>
             <Grid.Row>
               {this.loading()}
-              <Card.Group>
+              <Card.Group className="centered">
                 {this.legislator()}
               </Card.Group>
             </Grid.Row>
