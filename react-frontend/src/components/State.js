@@ -3,6 +3,7 @@ import LegislatorService from './LegislatorService';
 import axios from 'axios';
 import Legislator from './Legislator';
 import { Container, Grid, Form, Button, TextArea, Header, Table, Card } from 'semantic-ui-react'
+import Loading from 'react-loading-animation';
 
 export default class State extends Component {
 
@@ -12,10 +13,16 @@ export default class State extends Component {
       this.legislatorService = new LegislatorService();
     }
     
-    componentWillMount(){
+    componentWillMount() {
       this.fillData();
     }
-
+    
+    loading() {
+      if(!this.state.response) {
+        return <Loading />;
+      }
+    }
+    
     fillData() {
       var thisRef = this;
       let states =this.props.match.params.states;
@@ -24,7 +31,7 @@ export default class State extends Component {
       });
     }
 
-    legislator(){
+    legislator() {
       if(this.state.response && this.state.response.legislator instanceof Array){
         var thisRef = this;
         return this.state.response.legislator.map(function(object){
@@ -41,6 +48,7 @@ export default class State extends Component {
               <Header as='h1'>Legislators</Header>
             </Grid.Row>
             <Grid.Row>
+              {this.loading()}
               <Card.Group>
                 {this.legislator()}
               </Card.Group>
