@@ -5,7 +5,7 @@ export const Header = (props) => {
   return (
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item as='a' header>
+        <Menu.Item as='a' href='/' header>
           Senate Stacks
         </Menu.Item>
       </Container>
