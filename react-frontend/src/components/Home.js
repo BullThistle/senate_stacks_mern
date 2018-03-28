@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Grid, Header } from 'semantic-ui-react'
+import Map from './Map';
 
 export default class IndexItem extends Component {
 
@@ -9,6 +10,9 @@ export default class IndexItem extends Component {
           <Grid className="centered">
             <Grid.Row>
               <Header as='h1'>Senate Stacks</Header>
+            </Grid.Row>
+            <Grid.Row>
+              <Map />
             </Grid.Row>
           </Grid>
         </Container>
