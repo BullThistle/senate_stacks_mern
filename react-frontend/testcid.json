@@ -1,0 +1,85 @@
+{
+  "response": {
+    "contributors": {
+      "@attributes": {
+        "cand_name": "Nancy Pelosi (D)",
+        "cid": "N00007360",
+        "cycle": "2018",
+        "origin": "Center for Responsive Politics",
+        "source": "https:\/\/www.opensecrets.org\/members-of-congress\/contributors?cid=N00007360&cycle=2018",
+        "notice": "The organizations themselves did not donate, rather the money came from the organization's PAC, its individual members or employees or owners, and those individuals' immediate families."
+      },
+      "contributor": [{
+        "@attributes": {
+          "org_name": "Amazon.com",
+          "total": "12720",
+          "pacs": "10000",
+          "indivs": "2720"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "Certain Software Inc",
+          "total": "10800",
+          "pacs": "0",
+          "indivs": "10800"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "R&S Assoc",
+          "total": "10800",
+          "pacs": "0",
+          "indivs": "10800"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "Facebook Inc",
+          "total": "10400",
+          "pacs": "5000",
+          "indivs": "5400"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "Delta Air Lines",
+          "total": "10191",
+          "pacs": "10000",
+          "indivs": "191"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "International Brotherhood of Electrical Workers",
+          "total": "10030",
+          "pacs": "10000",
+          "indivs": "30"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "Carpenters & Joiners Union",
+          "total": "10000",
+          "pacs": "10000",
+          "indivs": "0"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "Community Health Systems",
+          "total": "10000",
+          "pacs": "10000",
+          "indivs": "0"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "Credit Union National Assn",
+          "total": "10000",
+          "pacs": "10000",
+          "indivs": "0"
+        }
+      }, {
+        "@attributes": {
+          "org_name": "HCA Inc",
+          "total": "10000",
+          "pacs": "10000",
+          "indivs": "0"
+        }
+      }]
+    }
+  }
+}

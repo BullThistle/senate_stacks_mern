@@ -8,7 +8,6 @@ var TopicList = require('../models/TopicList');
 
 // Get All Items
 router.route('/').get(function (req, res) {
-  console.log('Def Hits Right Here');
   TopicList.find(function (err, items){
     if(err){
       console.log(err);
@@ -57,23 +56,45 @@ router.route('/delete/:id').get(function (req, res) {
     });
 });
 
-router.route('/:state').get(function (req, res) {
-  var state = req.params.state;
+router.route('/legislator/:cid').get(function (req, res) {
+  var cid = req.params.cid;
   var apiKey = process.env.OPEN_SECRETS_API;
-  var url = `http://www.opensecrets.org/api/?method=getLegislators&id=${state}&apikey=${apiKey}&output=json`;
+  var url =
+   `https://www.opensecrets.org/api/?method=candContrib&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
 
-  request(url, function (err, response, body) {
-    if(err){
-      res.render('index', {legislators: null, error: 'Error, please try again'});
-    } else {
-      var legislators = JSON.parse(body)
-      if(legislators.response == undefined){
-        res.render('index', {legislators: null, error: 'Error, please try again'});
-      } else {
-        res.json(legislators);
-      }
-    }
-  });
-});
+   request(url, function (err, response, body) {
+     if(err){
+       res.render('index', {legislators: null, error: 'Error, please try again'});
+     } else {
+       var legislators = JSON.parse(body);
+       
+       if(legislators.response == undefined){
+         res.render('index', {legislators: null, error: 'Error, please try again'});
+       } else {
+         res.json(legislators);
+       }
+     }
+   });
+ });
+
+ router.route('/:state').get(function (req, res) {
+   var state = req.params.state;
+   var apiKey = process.env.OPEN_SECRETS_API;
+   var url = `https://www.opensecrets.org/api/?method=getLegislators&id=${state}&apikey=${apiKey}&output=json`;
+
+   request(url, function (err, response, body) {
+     if(err){
+       res.render('index', {legislators: null, error: 'Error, please try again'});
+     } else {
+       var legislators = JSON.parse(body);
+       if(legislators.response == undefined){
+         res.render('index', {legislators: null, error: 'Error, please try again'});
+       } else {
+         res.json(legislators);
+       }
+     }
+   });
+ });
+
 
 module.exports = router;
