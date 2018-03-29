@@ -10,6 +10,8 @@ export default class Legislator extends Component {
   constructor(props) {
     super(props);
     this.state = {items: ''};
+    this.contributors;
+    this.summary;
     this.legislatorService = new LegislatorService();
   }
 
@@ -24,16 +26,20 @@ export default class Legislator extends Component {
   }
   
   fillData() {
-    var thisRef = this;
-    let cid =this.props.match.params.cid;
+    var contributors = this.contributors;
+    var summary = this.summary;
+    var cid =this.props.match.params.cid;
     this.legislatorService.getLegislator( cid, function(data){
-      thisRef.setState(data);
+      contributors = data[0].response.contributors;
+      summary =  data[1].response.summary;
+      console.log('SUMMARYY', summary);
+      console.log('CONTRIBS', contributors);
+      console.log('DAMN NAME', this.contributors["@attributes"].cand_name)
     });
   }
 
   graph() {
-    if(this.state.response && this.state.response.contributors.contributor instanceof Array){
-      var thisRef = this;
+    if(this.contributors && this.contributors.contributor instanceof Array){
       return this.state.response.contributors.contributor.map(function(object){
           return <Graph obj={object["@attributes"]} />;
       })
@@ -45,7 +51,7 @@ export default class Legislator extends Component {
       <Container style={{ marginTop: '7em' }}>
         <Grid className="centered">
           <Grid.Row>
-            <Header as='h1'>Legislator</Header>
+            <Header as='h1'>Name</Header>
           </Grid.Row>
           <Grid.Row>
             {this.loading()}

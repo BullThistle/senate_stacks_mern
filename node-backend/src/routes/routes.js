@@ -59,19 +59,38 @@ router.route('/delete/:id').get(function (req, res) {
 router.route('/legislator/:cid').get(function (req, res) {
   var cid = req.params.cid;
   var apiKey = process.env.OPEN_SECRETS_API;
-  var url =
+  result = [];
+  
+  var contribUrl =
    `https://www.opensecrets.org/api/?method=candContrib&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
+   
+  var candUrl = `http://www.opensecrets.org/api/?method=candSummary&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
 
-   request(url, function (err, response, body) {
+   request(contribUrl, function (err, response, body) {
      if(err){
-       res.render('index', {legislators: null, error: 'Error, please try again'});
+       console.log('Hit error');
      } else {
-       var legislators = JSON.parse(body);
+       var contribs = JSON.parse(body);
        
-       if(legislators.response == undefined){
-         res.render('index', {legislators: null, error: 'Error, please try again'});
+       if(contribs.response == undefined){
+         console.log('legislators.response is undefined');
        } else {
-         res.json(legislators);
+         result.push(contribs);
+         
+         request(candUrl, function (err, response, body) {
+           if(err){
+             console.log('Hit error');
+           } else {
+             var cand = JSON.parse(body);
+
+             if(cand.response == undefined){
+               console.log('legislators.response is undefined');
+             } else {
+               result.push(cand);
+               res.send(result);
+             }
+           }
+         });
        }
      }
    });
