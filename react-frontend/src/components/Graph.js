@@ -5,7 +5,7 @@ import { Container, Grid, Card, Header } from 'semantic-ui-react'
 export default class Graph extends Component {
 
   constructor(props) {
-      super(props);
+    super(props);
   }
   
   render() {

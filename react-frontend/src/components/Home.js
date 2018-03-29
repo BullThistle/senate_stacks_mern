@@ -4,18 +4,18 @@ import Map from './Map';
 
 export default class IndexItem extends Component {
 
-    render() {
-      return (
-        <Container style={{ marginTop: '7em' }}>
-          <Grid className="centered">
-            <Grid.Row>
-              <Header as='h1'>Senate Stacks</Header>
-            </Grid.Row>
-            <Grid.Row>
-              <Map />
-            </Grid.Row>
-          </Grid>
-        </Container>
-      );
-    }
+  render() {
+    return (
+      <Container style={{ marginTop: '7em' }}>
+        <Grid className="centered">
+          <Grid.Row>
+            <Header as='h1'>Senate Stacks</Header>
+          </Grid.Row>
+          <Grid.Row>
+            <Map />
+          </Grid.Row>
+        </Grid>
+      </Container>
+    );
   }
+}
