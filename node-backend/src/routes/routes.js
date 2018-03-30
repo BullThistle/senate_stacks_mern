@@ -71,7 +71,6 @@ router.route('/legislator/:cid').get(function (req, res) {
      if(cand.response == undefined){
        console.log('legislators.response is undefined');
      } else {
-       console.log('From routes', result);
        res.json(cand);
      }
    }
@@ -100,23 +99,26 @@ router.route('/legislator/:cid').get(function (req, res) {
     });
   });
 
- router.route('/:state').get(function (req, res) {
-   var state = req.params.state;
-   var url = `https://www.opensecrets.org/api/?method=getLegislators&id=${state}&apikey=${apiKey}&output=json`;
+router.route('/:state').get(function (req, res) {
+  var state = req.params.state;
+  var url = `https://www.opensecrets.org/api/?method=getLegislators&id=${state}&apikey=${apiKey}&output=json`;
 
-   request(url, function (err, response, body) {
-     if(err){
-       res.render('index', {legislators: null, error: 'Error, please try again'});
-     } else {
-       var legislators = JSON.parse(body);
-       if(legislators.response == undefined){
-         res.render('index', {legislators: null, error: 'Error, please try again'});
-       } else {
-         res.json(legislators);
-       }
-     }
-   });
- });
+  request(url, function (err, response, body) {
+    if (body === 'Resource not found') {
+      res.send({status: 'Network error'})
+    }
+    if(err){
+      res.render('index', {legislators: null, error: 'Error, please try again'});
+    } else {
+      var legislators = JSON.parse(body);
+      if(legislators.response == undefined){
+        res.render('index', {legislators: null, error: 'Error, please try again'});
+      } else {
+        res.json(legislators);
+      }
+    }
+  });
+});
 
 
 module.exports = router;

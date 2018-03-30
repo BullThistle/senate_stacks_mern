@@ -23,4 +23,16 @@ export default class LegislatorService {
       callback(null);
     });
   }
+  
+    getLegislativeContributor(cid, callback) {
+    axios.get('http://localhost:6200/legislativeContributor/' + cid)
+    .then((response) => {
+      console.log('from Leg Service', response.data);
+      callback(response.data);
+    })
+    .catch(function (error) {
+      console.log('Error');
+      callback(null);
+    });
+  }
 }
