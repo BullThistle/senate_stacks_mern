@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LegislatorService from '../services/LegislatorService';
 import Graph from './Graph';
+import LegislatorSummary from './LegislatorSummary';
 import axios from 'axios';
 import { Container, Grid, Card, Header } from 'semantic-ui-react'
 import Loading from 'react-loading-animation';
@@ -49,17 +50,28 @@ export default class Legislator extends Component {
         return <Graph obj={this.state.contributorInformation} />;
       }
     }
+    
+    summary() {
+      if(this.state.candidateInformation && this.state.candidateInformation.cand_name){
+          return <LegislatorSummary obj={this.state.candidateInformation}/>;
+        }
+      }
   
   render() {
     console.log(this.state);
     return (
       <Container style={{ marginTop: '7em' }}>
-        <Grid className="centered">
-          <Grid.Row>
+        <Grid columns={2} divided>
+          <Grid.Row className="centered">
             <Header>{this.state.candidateInformation.cand_name}</Header>
           </Grid.Row>
           <Grid.Row>
-            {this.graph()}
+            <Grid.Column>
+              {this.summary()}
+            </Grid.Column>
+            <Grid.Column>
+              {this.graph()}
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </Container>
