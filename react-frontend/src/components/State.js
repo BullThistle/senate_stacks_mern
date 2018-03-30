@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LegislatorService from './LegislatorService';
+import LegislatorService from '../services/LegislatorService';
 import axios from 'axios';
 import LegislatorCard from './LegislatorCard';
 import { Container, Grid, Form, Button, TextArea, Header, Table, Card } from 'semantic-ui-react'

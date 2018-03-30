@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import TopicService from './TopicService';
+import TopicService from '../services/TopicService';
 import { Container, Grid, Form, Button, TextArea, Header } from 'semantic-ui-react'
 
 export default class UpdateTopic extends Component {

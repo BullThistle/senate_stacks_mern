@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LegislatorService from './LegislatorService';
+import LegislatorService from '../services/LegislatorService';
 import Graph from './Graph';
 import axios from 'axios';
 import { Container, Grid, Card, Header } from 'semantic-ui-react'
@@ -46,6 +46,7 @@ export default class Legislator extends Component {
   }
   
   render() {
+    console.log(this.state);
     return (
       <Container style={{ marginTop: '7em' }}>
         <Grid className="centered">
