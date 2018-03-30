@@ -10,12 +10,11 @@ export default class Legislator extends Component {
   constructor(props) {
     super(props);
     this.state = {items: ''};
-    this.contributors;
-    this.summary;
     this.legislatorService = new LegislatorService();
+    this.graph = this.graph.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fillData();
   }
   
@@ -26,32 +25,32 @@ export default class Legislator extends Component {
   }
   
   fillData() {
-    var contributors = this.contributors;
-    var summary = this.summary;
     var cid =this.props.match.params.cid;
-    this.legislatorService.getLegislator( cid, function(data){
-      contributors = data[0].response.contributors;
-      summary =  data[1].response.summary;
-      console.log('SUMMARYY', summary);
-      console.log('CONTRIBS', contributors);
-      console.log('DAMN NAME', this.contributors["@attributes"].cand_name)
+    var thisRef = this;
+    this.legislatorService.getLegislator(cid, function(data){
+      console.log(data);
+      thisRef.setState(data);
+      console.log('ThisRef', thisRef.state[0].response.contributors["@attributes"].cand_name);
     });
   }
 
   graph() {
-    if(this.contributors && this.contributors.contributor instanceof Array){
-      return this.state.response.contributors.contributor.map(function(object){
-          return <Graph obj={object["@attributes"]} />;
-      })
-    }
+    var thisRef = this;
+    // console.log('FROM GRAPH', thisRef.state[0].response.contributors["@attributes"].cand_name);
+    // if(this.state[0].response && this.state[0].response.contributors instanceof Array){
+    //   console.log('Made it in the graph!');
+    //   return this.state.response.contributors.contributor.map(function(object){
+    //       return <Graph obj={object["@attributes"]} />;
+    //   })
+    // }
   }
-
+  
   render() {
     return (
       <Container style={{ marginTop: '7em' }}>
         <Grid className="centered">
           <Grid.Row>
-            <Header as='h1'>Name</Header>
+            <Header>Leg</Header>
           </Grid.Row>
           <Grid.Row>
             {this.loading()}

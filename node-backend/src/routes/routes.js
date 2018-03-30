@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 const request = require('request');
+const apiKey = process.env.OPEN_SECRETS_API;
 
 //Schema
 var TopicList = require('../models/TopicList');
@@ -56,49 +57,51 @@ router.route('/delete/:id').get(function (req, res) {
     });
 });
 
+//Legislator information endpoint
 router.route('/legislator/:cid').get(function (req, res) {
   var cid = req.params.cid;
-  var apiKey = process.env.OPEN_SECRETS_API;
-  result = [];
-  
-  var contribUrl =
-   `https://www.opensecrets.org/api/?method=candContrib&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
    
   var candUrl = `http://www.opensecrets.org/api/?method=candSummary&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
+  request(candUrl, function (err, response, body) {
+   if(err){
+     console.log('Hit error');
+   } else {
+     var cand = JSON.parse(body);
 
-   request(contribUrl, function (err, response, body) {
-     if(err){
-       console.log('Hit error');
+     if(cand.response == undefined){
+       console.log('legislators.response is undefined');
      } else {
-       var contribs = JSON.parse(body);
-       
-       if(contribs.response == undefined){
-         console.log('legislators.response is undefined');
-       } else {
-         result.push(contribs);
-         
-         request(candUrl, function (err, response, body) {
-           if(err){
-             console.log('Hit error');
-           } else {
-             var cand = JSON.parse(body);
-
-             if(cand.response == undefined){
-               console.log('legislators.response is undefined');
-             } else {
-               result.push(cand);
-               res.send(result);
-             }
-           }
-         });
-       }
+       console.log('From routes', result);
+       res.json(cand);
      }
-   });
- });
+   }
+  });
+});
+ 
+ //Contributor information endpoint
+ router.route('/legislativeContributor/:cid').get(function (req, res) {
+   var cid = req.params.cid;
+   
+   var contribUrl =
+    `https://www.opensecrets.org/api/?method=candContrib&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
+
+    request(contribUrl, function (err, response, body) {
+      if(err){
+        console.log('Hit error');
+      } else {
+        var contribs = JSON.parse(body);
+        
+        if(contribs.response == undefined){
+          console.log('legislators.response is undefined');
+        } else {
+          res.json(contribs);
+        }
+      }
+    });
+  });
 
  router.route('/:state').get(function (req, res) {
    var state = req.params.state;
-   var apiKey = process.env.OPEN_SECRETS_API;
    var url = `https://www.opensecrets.org/api/?method=getLegislators&id=${state}&apikey=${apiKey}&output=json`;
 
    request(url, function (err, response, body) {
