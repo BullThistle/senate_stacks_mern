@@ -6,6 +6,7 @@ export default class LegislatorCard extends Component {
 
   constructor(props) {
       super(props);
+      console.log('LEG CARD PROPS', props);
   }
   
   legislatorHandler = (event) => {

@@ -62,7 +62,12 @@ router.route('/legislator/:cid').get(function (req, res) {
   var cid = req.params.cid;
    
   var candUrl = `http://www.opensecrets.org/api/?method=candSummary&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
+  
   request(candUrl, function (err, response, body) {
+    if (body === 'Resource not found') {
+      res.send({status: 'Network error'})
+      console.log('Api for legislator is not working');
+    }
    if(err){
      console.log('Hit error');
    } else {
@@ -71,6 +76,7 @@ router.route('/legislator/:cid').get(function (req, res) {
      if(cand.response == undefined){
        console.log('legislators.response is undefined');
      } else {
+       console.log(cand);
        res.json(cand);
      }
    }
@@ -85,6 +91,10 @@ router.route('/legislator/:cid').get(function (req, res) {
     `https://www.opensecrets.org/api/?method=candContrib&cid=${cid}&cycle=2018&apikey=${apiKey}&output=json`;
 
     request(contribUrl, function (err, response, body) {
+      if (body === 'Resource not found') {
+        res.send({status: 'Network error'})
+        console.log('Api for legislative contributor is not working');
+      }
       if(err){
         console.log('Hit error');
       } else {
@@ -93,6 +103,7 @@ router.route('/legislator/:cid').get(function (req, res) {
         if(contribs.response == undefined){
           console.log('legislators.response is undefined');
         } else {
+          console.log(contribs);
           res.json(contribs);
         }
       }
@@ -106,15 +117,16 @@ router.route('/:state').get(function (req, res) {
   request(url, function (err, response, body) {
     if (body === 'Resource not found') {
       res.send({status: 'Network error'})
-    }
-    if(err){
-      res.render('index', {legislators: null, error: 'Error, please try again'});
     } else {
-      var legislators = JSON.parse(body);
-      if(legislators.response == undefined){
+      if(err){
         res.render('index', {legislators: null, error: 'Error, please try again'});
       } else {
-        res.json(legislators);
+        var legislators = JSON.parse(body);
+        if(legislators.response == undefined){
+          res.render('index', {legislators: null, error: 'Error, please try again'});
+        } else {
+          res.json(legislators);
+        }
       }
     }
   });

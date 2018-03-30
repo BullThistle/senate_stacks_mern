@@ -19,7 +19,7 @@ export default class LegislatorService {
       callback(response.data);
     })
     .catch(function (error) {
-      console.log('Error');
+      console.log('Error From leg service');
       callback(null);
     });
   }

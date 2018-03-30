@@ -4,7 +4,6 @@ import Graph from './Graph';
 import axios from 'axios';
 import { Container, Grid, Card, Header } from 'semantic-ui-react'
 import Loading from 'react-loading-animation';
-import { CandidateInformation } from './CandidateInformation';
 
 export default class Legislator extends Component {
 
@@ -34,7 +33,6 @@ export default class Legislator extends Component {
       this.setState({candidateInformation: newState});
     });
     this.legService.getLegislativeContributor(cid, (data) => {
-      console.log('Data response', data.response.contributors.contributor);
       let newState = data.response.contributors.contributor;
       this.setState({contributorInformation: newState});
     });
@@ -47,15 +45,10 @@ export default class Legislator extends Component {
   }
 
   graph() {
-    var thisRef = this;
-    // console.log('FROM GRAPH', thisRef.state[0].response.contributors["@attributes"].cand_name);
-    // if(this.state[0].response && this.state[0].response.contributors instanceof Array){
-    //   console.log('Made it in the graph!');
-    //   return this.state.response.contributors.contributor.map(function(object){
-    //       return <Graph obj={object["@attributes"]} />;
-    //   })
-    // }
-  }
+    if(this.state.contributorInformation && this.state.contributorInformation["1"]){
+        return <Graph obj={this.state.contributorInformation} />;
+      }
+    }
   
   render() {
     console.log(this.state);
@@ -66,9 +59,7 @@ export default class Legislator extends Component {
             <Header>{this.state.candidateInformation.cand_name}</Header>
           </Grid.Row>
           <Grid.Row>
-            <Card.Group className="centered">
-              <CandidateInformation/>
-            </Card.Group>
+            {this.graph()}
           </Grid.Row>
         </Grid>
       </Container>
